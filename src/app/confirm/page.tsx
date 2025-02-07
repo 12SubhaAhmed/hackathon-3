@@ -3,6 +3,7 @@ import Link from "next/link";
 import Navbar from "../components/Navbar/page";
 import { useSearchParams } from "next/navigation";
 import { FaCheck } from "react-icons/fa";
+import Image from "next/image";
 
 export default function Final() {
   const searchParams = useSearchParams();
@@ -79,9 +80,10 @@ export default function Final() {
           {/* Car Details */}
           <div className="bg-white shadow-lg rounded-lg p-6 w-[350px] sm:w-[500px] mb-4">
             {carImage ? (
-              <img
+              <Image
                 src={carImage}
                 alt={carName || "Car Image"}
+                width={300} height={300}
                 className="w-full h-40 object-cover rounded-lg"
               />
             ) : (
@@ -98,14 +100,16 @@ export default function Final() {
 
         {/* Additional Images */}
         <div className="sm:w-1/3 mt-4 sm:mt-0 rounded-[10px]">
-          <img
+          <Image
             src="/Images/route.png"
             alt="Route Details"
+            width={300} height={300}
             className="w-full border-2 h-auto mb-4"
           />
-          <img
+          <Image
             src="/Images/recent.png"
             alt="Recent Rentals"
+            width={300} height={300}
             className="w-full border-2 h-auto"
           />
         </div>

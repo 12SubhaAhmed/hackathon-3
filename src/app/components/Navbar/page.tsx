@@ -3,6 +3,7 @@ import { MdKeyboardCommandKey } from "react-icons/md";
 import { PiHeartFill } from "react-icons/pi";
 import { VscBellDot } from "react-icons/vsc";
 import { IoIosSettings } from "react-icons/io";
+import Image from "next/image";
 
 export default function Navbar() {
   return (
@@ -23,7 +24,7 @@ export default function Navbar() {
       <nav className="w-full flex items-center justify-between px-6 py-4 bg-white shadow-md">
         {/* Logo */}
         <div className="w-40">
-          <img src="/Images/Logo.png" alt="Company Logo" className="w-full" />
+          <Image src="/Images/Logo.png" alt="Company Logo" className="w-full" width={300} height={300}/>
         </div>
 
         {/* Icons & Profile */}
@@ -31,9 +32,10 @@ export default function Navbar() {
           <PiHeartFill className="text-black text-2xl" />
           <VscBellDot className="text-black text-2xl" />
           <IoIosSettings className="text-black text-2xl" />
-          <img
+          <Image
             src="/Images/p2.png"
             alt="Profile"
+            width={300} height={300}
             className="w-10 h-10 rounded-full"
           />
         </div>

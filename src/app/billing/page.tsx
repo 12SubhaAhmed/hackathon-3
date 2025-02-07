@@ -2,6 +2,7 @@
 import Navbar from "../components/Navbar/page";
 import Footer from "../components/Footer/page";
 import Link from "next/link";
+import Image from "next/image";
 import { useSearchParams } from "next/navigation";
 import { urlFor } from "@/sanity/lib/image";
 
@@ -39,7 +40,11 @@ export default function Billing() {
         {/* Billing Form */}
         <div className="bg-white w-full lg:w-[805px] p-6 shadow-lg rounded-lg">
           <form className="space-y-6">
-            <img src="/Images/Info.png" alt="Billing Info" />
+            <Image src="/Images/Info.png"
+             alt="Billing Info"
+             width={300}
+             height={300}
+             />
 
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
               {["Name", "Phone Number", "Address", "Town/City"].map(
@@ -59,7 +64,7 @@ export default function Billing() {
 
           {/* Rental Info */}
           <form className="space-y-6 mt-8">
-            <img src="/Images/Rental Info.png" alt="Rental Info" />
+            <Image src="/Images/Rental Info.png" alt="Rental Info" width={300} height={300}/>
 
             {/* Pick Up Section */}
             <img src="/Images/PickUp.png" alt="Pick Up" className="mt-6" />
@@ -94,10 +99,10 @@ export default function Billing() {
 
           {/* Payment Summary */}
           <form className="space-y-6 mt-8">
-            <img src="/Images/payment.png" alt="Payment Method" />
+            <Image src="/Images/payment.png" alt="Payment Method" width={200} height={200}/>
             <div className="flex justify-between sm:justify-start gap-4 mt-4">
-              <img src="/Images/Credit.png" alt="Credit Card" />
-              <img src="/Images/Visa.png" alt="Visa" />
+              <Image src="/Images/Credit.png" alt="Credit Card" width={100} height={100}/>
+              <Image src="/Images/Visa.png" alt="Visa" width={100} height={100}/>
             </div>
 
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
@@ -131,7 +136,7 @@ export default function Billing() {
 
           {/* Confirmation Section */}
           <form className="space-y-6 mt-8">
-            <img src="/Images/confirm.png" alt="Confirmation" />
+            <Image src="/Images/confirm.png" alt="Confirmation" width={300} height={300}/>
 
             {[
               "I agree with receiving marketing and newsletter emails. No spam, promised!",
@@ -164,10 +169,11 @@ export default function Billing() {
         {/* Rental Summary (Visible on Larger Screens) */}
         <div className="hidden lg:block w-[380px] h-[250px] mt-6 ml-[50px] shadow-md rounded-lg bg-white p-4">
           {carImage ? (
-            <img
+            <Image
               src={carImage}
               alt={carName || "Car Image"}
               className="w-full  sm:h-[105px] object-cover rounded-lg"
+              width={300} height={300}
             />
           ) : (
             <p className="text-center text-gray-500">No car selected</p>
