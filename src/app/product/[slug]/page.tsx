@@ -6,28 +6,10 @@ import Navbar from "@/app/components/Navbar/page";
 import Footer from "@/app/components/Footer/page";
 import Image from "next/image";
 import Link from "next/link";
+import { getProduct } from "@/sanity/lib/getProduct";
 
 export interface productPgProps {
   params: { slug: string };
-}
-
-export async function getProduct(slug: string): Promise<Product | null> {
-  const productArray = await client.fetch(
-    groq`*[_type == "car" && slug.current == $slug]{
-        _id,
-        name,
-        _type,
-        image,
-        pricePerDay,
-        description,
-        seatingCapacity,
-        carType,
-        fuelCapacity
-    }`,
-    { slug }
-  );
-
-  return productArray.length > 0 ? productArray[0] : null;
 }
 
 export default async function ProductPage({ params }: productPgProps) {
