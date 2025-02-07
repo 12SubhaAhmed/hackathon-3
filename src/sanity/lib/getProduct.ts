@@ -19,4 +19,4 @@ export async function getProduct(slug: string): Promise<Product | null> {
   );
 
   return productArray.length > 0 ? productArray[0] : null;
-}
+};
