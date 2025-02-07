@@ -106,21 +106,115 @@
 //   );
 // }
 
+// import { urlFor } from "@/sanity/lib/image";
+// import Navbar from "@/app/components/Navbar/page";
+// import Footer from "@/app/components/Footer/page";
+// import Image from "next/image";
+// import Link from "next/link";
+// import { getProduct } from "@/sanity/lib/getProduct";
+
+// export default async function ProductPage({ params }: { params: { slug: string } }) {
+//   const slug = params?.slug; 
+
+//   if (!slug) {
+//     return <div className="text-center text-red-500 mt-10">Invalid product slug.</div>;
+//   }
+
+//   const product = await getProduct(slug);
+
+//   if (!product) {
+//     return <div className="text-center text-red-500 mt-10">Car not found.</div>;
+//   }
+
+//   return (
+//     <div className="bg-gray-100 min-h-screen">
+//       <Navbar />
+
+//       <div className="flex flex-col lg:flex-row w-full p-4 max-w-6xl mx-auto gap-6">
+//         <div className="hidden lg:block w-[300px] bg-white shadow-md p-6 rounded-lg">
+//           <h3 className="text-xl font-semibold text-gray-700 mb-4">Type</h3>
+//           <ul className="space-y-2">
+//             {["Sport", "SUV", "MPV", "Sedan", "Coupe", "Hatchback"].map((item) => (
+//               <li key={item} className="flex items-center">
+//                 <input type="checkbox" id={item} className="mr-2 accent-blue-500" />
+//                 <label htmlFor={item} className="text-gray-600">{item}</label>
+//               </li>
+//             ))}
+//           </ul>
+//         </div>
+
+//         <div className="flex-1 bg-white shadow-md p-6 rounded-lg">
+//           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+//             <div className="justify-center">
+//               {product.image ? (
+//                 <Image
+//                   src={urlFor(product.image).url()}
+//                   alt={product.name}
+//                   width={900}
+//                   height={900}
+//                   className="rounded-lg shadow-md"
+//                 />
+//               ) : (
+//                 <div className="w-[500px] h-[350px] flex items-center justify-center bg-gray-200 text-gray-500 rounded-lg">
+//                   No Image Available
+//                 </div>
+//               )}
+//             </div>
+
+//             <div className="flex flex-col justify-center">
+//               <h1 className="text-3xl font-bold text-gray-800">{product.name}</h1>
+//               <p className="text-xl text-gray-700 font-semibold mt-2">${product.pricePerDay} /day</p>
+//               <p className="text-sm text-gray-500 mt-4">{product.description}</p>
+
+//               <ul className="mt-4 text-gray-600 space-y-2">
+//                 <li><span className="font-semibold">Type:</span> {product._type}</li>
+//                 <li><span className="font-semibold">Seating Capacity:</span> {product.seatingCapacity}</li>
+//                 <li><span className="font-semibold">Fuel Capacity:</span> {product.fuelCapacity}L</li>
+//               </ul>
+
+//               <Link href={`/billing?name=${encodeURIComponent(product.name)}&price=${product.pricePerDay}`}>
+//                 <button className="bg-blue-600 text-white font-semibold h-12 p-3 mt-6 rounded-lg w-full md:w-40 hover:bg-blue-900 transition-all">
+//                   Rent Now
+//                 </button>
+//               </Link>
+//             </div>
+//           </div>
+//         </div>
+//       </div>
+
+//       <Footer />
+//     </div>
+//   );
+// }
+
+
 import { urlFor } from "@/sanity/lib/image";
 import Navbar from "@/app/components/Navbar/page";
 import Footer from "@/app/components/Footer/page";
 import Image from "next/image";
 import Link from "next/link";
 import { getProduct } from "@/sanity/lib/getProduct";
+import { getAllProducts } from "@/sanity/lib/getAllProduct"; // New function to get all slugs
 
-export default async function ProductPage({ params }: { params: { slug: string } }) {
-  const slug = params?.slug; 
+interface ProductPageProps {
+  params: { slug: string };
+}
 
-  if (!slug) {
+// ✅ Define `generateStaticParams` to prevent Next.js build errors
+export async function generateStaticParams() {
+  const products = await getAllProducts(); // Fetch all product slugs
+  return products.map((product: { slug: string }) => ({
+    slug: product.slug, // Ensure slug exists
+  }));
+}
+
+// ✅ Ensure `params` is correctly awaited before using it
+export default async function ProductPage({ params }: ProductPageProps) {
+  if (!params?.slug) {
     return <div className="text-center text-red-500 mt-10">Invalid product slug.</div>;
   }
 
-  const product = await getProduct(slug);
+  const product = await getProduct(params.slug);
 
   if (!product) {
     return <div className="text-center text-red-500 mt-10">Car not found.</div>;
@@ -172,7 +266,11 @@ export default async function ProductPage({ params }: { params: { slug: string }
                 <li><span className="font-semibold">Fuel Capacity:</span> {product.fuelCapacity}L</li>
               </ul>
 
-              <Link href={`/billing?name=${encodeURIComponent(product.name)}&price=${product.pricePerDay}`}>
+              <Link
+  href={`/billing?name=${encodeURIComponent(product.name)}&price=${product.pricePerDay}${
+     product.image ? `&image=${encodeURIComponent(urlFor(product.image).url())}` : ""
+   }`}
+ >
                 <button className="bg-blue-600 text-white font-semibold h-12 p-3 mt-6 rounded-lg w-full md:w-40 hover:bg-blue-900 transition-all">
                   Rent Now
                 </button>
@@ -186,5 +284,3 @@ export default async function ProductPage({ params }: { params: { slug: string }
     </div>
   );
 }
-
-
