@@ -1,4 +1,4 @@
-export default {
+const car = {
   name: 'car',
   type: 'document',
   title: 'Car',
@@ -92,3 +92,4 @@ export default {
     },
   ],
 };
+export default car;

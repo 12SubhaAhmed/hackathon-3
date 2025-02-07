@@ -61,7 +61,8 @@ const Cars = () => {
 
       <div className="flex justify-between ml-[64px] w-full h-[44px]">
         <div className="text-gray-600 p-3 hover:shadow-[0_0_4px_1px_black] transition-all">
-          {searchQuery ? `Search Results for: "${searchQuery}"` : "Popular Cars"}
+          {/* {searchQuery ? `Search Results for: "${searchQuery}"` : "Popular Cars"} */}
+          {searchQuery ? `Search Results for: &quot;${searchQuery}&quot;` : "Popular Cars"}
         </div>
       </div>
 
@@ -134,7 +135,7 @@ const Cars = () => {
       {/*  Show No Results Message */}
       {filteredCars.length === 0 && (
         <div className="text-center text-gray-600 mt-10 text-lg">
-          No cars found for "{searchQuery}"
+          No cars found for <span className="text-blue-500">&ldquo;{searchQuery}&rdquo;</span>
         </div>
       )}
 
