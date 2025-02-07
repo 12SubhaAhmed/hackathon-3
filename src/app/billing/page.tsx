@@ -23,9 +23,10 @@ export default function Billing() {
       {/* Rental Summary (Visible on all screens) */}
       <div className="w-[330px] h-[450px] mt-6 block lg:hidden mx-auto sm:ml-[50px] shadow-md rounded-lg bg-white p-4">
         {carImage ? (
-          <img
+          <Image
             src={carImage}
             alt={carName || "Car Image"}
+            width={300} height={300}
             className="w-full h-[105px] object-cover rounded-lg"
           />
         ) : (
@@ -67,7 +68,7 @@ export default function Billing() {
             <Image src="/Images/Rental Info.png" alt="Rental Info" width={300} height={300}/>
 
             {/* Pick Up Section */}
-            <img src="/Images/PickUp.png" alt="Pick Up" className="mt-6" />
+            <Image src="/Images/PickUp.png" alt="Pick Up" className="mt-6" width={300} height={300} />
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
               {["Location", "Date", "Time"].map((field, index) => (
                 <div key={index}>
@@ -82,7 +83,7 @@ export default function Billing() {
             </div>
 
             {/* Drop Off Section */}
-            <img src="/Images/drop.png" alt="Drop Off" className="mt-6" />
+            <Image src="/Images/drop.png" alt="Drop Off" className="mt-6" width={300} height={300} />
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
               {["Location", "Date", "Time"].map((field, index) => (
                 <div key={index}>
